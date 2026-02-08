@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahul ❤️ Akshita</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+    height:100vh;
+    overflow:hidden;
+    color:white;
+    background:black;
+}
+.hero{
+    position:relative;
+    width:100%;
+    height:100vh;
+    background:url('akshita.jpg') center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(to top,rgba(0,0,0,0.85),rgba(0,0,0,0.3));
+}
+.content{
+    position:relative;
+    z-index:2;
+    background:rgba(0,0,0,0.5);
+    padding:30px;
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    max-width:350px;
+    width:100%;
+    text-align:center;
+}
+h1{font-size:1.8rem;margin-bottom:10px}
+h2{font-size:1.1rem;margin:15px 0}
+button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:30px;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.3s;
+}
+.yes{background:#ff4e8a;color:white;}
+.no{background:white;color:#ff4e8a;}
+#finalMessage{
+    display:none;
+    margin-top:15px;
+    font-weight:600;
+    font-size:1.1rem;
+}
+.particle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:gold;
+    border-radius:50%;
+    animation:float 8s linear infinite;
+}
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:0}
+    50%{opacity:1}
+    100%{transform:translateY(-10vh);opacity:0}
+}
+.rose{
+    position:absolute;
+    font-size:24px;
+    animation:rosePop 2s ease forwards;
+}
+@keyframes rosePop{
+    0%{transform:scale(0) rotate(0deg);opacity:0}
+    50%{transform:scale(1.5) rotate(180deg);opacity:1}
+    100%{transform:translateY(-200px) scale(1) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="hero">
+    <div class="overlay"></div>
+
+    <div class="content">
+        <h1>Akshita ❤️</h1>
+        <h2 id="question">Will You Be My Forever? 💍</h2>
+
+        <button class="yes">Yes ❤️</button>
+        <button class="no" onclick="handleNo()">No 🙈</button>
+
+        <p id="finalMessage"></p>
+    </div>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+// Play music on first click anywhere
+document.body.addEventListener("click", function() {
+    music.play().catch(()=>{});
+}, { once: true });
+
+let clickCount = 0; // track yes/no clicks
+
+const romanticLines = [
+    "Are you sure? I promise to protect your smile forever 🥺",
+    "I already see our future together 💕",
+    "I want to grow old with you 🌅",
+    "Don’t say no to our forever story 😌",
+    "I’ll love you more every single day 💖",
+    "It was always YES ✨"
+];
+
+function handleNo(){
+    const question = document.getElementById("question");
+    const noBtn = document.querySelector(".no");
+    const yesBtn = document.querySelector(".yes");
+
+    if(clickCount < romanticLines.length - 1){
+        question.innerHTML = romanticLines[clickCount];
+        clickCount++;
+    }
+    else{
+        question.innerHTML = "Choose your destiny 😏";
+        noBtn.innerHTML = "YES 😍";
+        noBtn.classList.remove("no");
+        noBtn.classList.add("yes");
+        noBtn.onclick = handleYes; // No button now becomes yes
+        yesBtn.innerHTML = "YES, Forever ❤️";
+    }
+}
+
+// new function for Yes clicks
+function handleYes(){
+    const question = document.getElementById("question");
+    if(clickCount < romanticLines.length){
+        question.innerHTML = romanticLines[clickCount];
+        clickCount++;
+    }
+    else{
+        sayYes(); // final celebration
+    }
+}
+
+// Final Yes celebration
+function sayYes(){
+    document.getElementById("finalMessage").style.display="block";
+    document.getElementById("finalMessage").innerHTML =
+        "You just made me the happiest man alive 💍✨<br><br>Forever starts now, Akshita.<br>Rahul ❤️";
+
+    // Shower roses
+    for(let i=0;i<50;i++){
+        let rose=document.createElement("div");
+        rose.className="rose";
+        rose.innerHTML="🌹";
+        rose.style.left=Math.random()*100+"vw";
+        rose.style.top=Math.random()*80+"vh";
+        document.body.appendChild(rose);
+        setTimeout(()=>rose.remove(),2000);
+    }
+}
+
+// Golden particles in background
+for(let i=0;i<50;i++){
+    let particle=document.createElement("div");
+    particle.className="particle";
+    particle.style.left=Math.random()*100+"vw";
+    particle.style.animationDuration=Math.random()*5+5+"s";
+    document.body.appendChild(particle);
+}
+
+// Attach Yes button to new handleYes function
+document.querySelector(".yes").onclick = handleYes;
+</script>
+
+</body>
+</html>
+
+
+
+
